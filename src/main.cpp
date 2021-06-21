@@ -4,9 +4,8 @@
 #include <unistd.h>
 #include <fstream>
 
-inline bool exists_file (const std::string &);
-void read_input();
-
+inline bool exists_file (std::string const &);
+void        read_input();
 
 int main(int argc, char * argv[]){
 
@@ -59,16 +58,14 @@ int main(int argc, char * argv[]){
   }
 
   return 0;
-
 }
 
-inline bool exists_file (const std::string & name) {
+inline bool exists_file(std::string const & name) {
   struct stat buffer;   
   return (stat (name.c_str(), &buffer) == 0); 
 }
 
-
-void read_input(){
+void read_input() {
   //switch(argc){
   //case 5:
   //{
