@@ -12,17 +12,17 @@ void TripletState::setupUncommonFormulas(Util::Z3ExprSet const & set_input){
     uncommon_formulas.insert(x);
 }
 
-TripletState * TripletState::split(z3::expr const & f) const {
-  TripletState * new_triplet_state = new TripletState(*this);
-  new_triplet_state->addCommon(f);
-  return new_triplet_state;
-}
+//TripletState * TripletState::split(z3::expr const & f) const {
+  //TripletState * new_triplet_state = new TripletState(*this);
+  //new_triplet_state->addCommonFormula(f);
+  //return new_triplet_state;
+//}
 
-void TripletState::addExplicit(z3::expr const & f){
+void TripletState::addExplicitFormula(z3::expr const & f){
   explicit_formulas.insert(f);
 }
 
-void TripletState::addCommon(z3::expr const & f){
+void TripletState::addCommonFormula(z3::expr const & f){
   common_formulas.insert(f);
 }
 

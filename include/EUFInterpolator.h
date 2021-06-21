@@ -25,7 +25,8 @@ class EUFInterpolator : public Preprocessor {
   std::set<std::string> const & uncomms;
 
   public:
-  EUFInterpolator(z3::expr_vector const &, std::set<std::string> const &);
+  EUFInterpolator(
+      z3::expr_vector const &, std::set<std::string> const &);
 };
 
 #endif

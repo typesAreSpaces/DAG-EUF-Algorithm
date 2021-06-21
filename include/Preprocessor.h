@@ -19,9 +19,8 @@ class Preprocessor {
 
   z3::expr fresh_constant(z3::sort const &);
 
-  unsigned fresh_num;
-
   protected:
+  unsigned fresh_num;
   z3::context &   ctx;
   z3::expr_vector vec_input;
 

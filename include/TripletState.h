@@ -18,14 +18,11 @@ class TripletState {
   bool caneFreeLiteralRule();
   bool canSplittingRule();
   
-  void addExplicit(z3::expr const &);
-  void addCommon(z3::expr const &);
+  void addExplicitFormula(z3::expr const &);
+  void addCommonFormula(z3::expr const &);
 
-  // Split
-  TripletState * split(z3::expr const &) const;
-
-  // Z3 Context
   z3::context & ctx;
+  unsigned &    fresh_num;
 
   // Input separation
   Z3ExprSet explicit_formulas;
@@ -37,16 +34,15 @@ class TripletState {
 
   // Circular Pair Iterator
   CircularPairIterator circular_pair_iterator;
-  //circular_pair_iterator((initialSplit(vec_input), uncommon_formulas))
 
   public:
-  TripletState(z3::expr_vector const &);
+  TripletState(z3::expr_vector const &, unsigned &);
   TripletState(
       Z3ExprSet const &, 
       Z3ExprSet const &, 
       Z3ExprSet const &, 
-      z3::context &);
-  TripletState(TripletState const &, z3::context &);
+      z3::context &, unsigned &);
+  TripletState(TripletState const &, z3::context &, unsigned &);
 
   z3::expr getFormula() const;
   
