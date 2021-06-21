@@ -1,4 +1,4 @@
-#include "./../include/TripletState.h"
+#include "TripletState.h"
 
 void TripletState::setupUncommonFormulas(z3::expr_vector const & vec_input){
   // Move everything to the uncommon part

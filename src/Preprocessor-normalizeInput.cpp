@@ -1,4 +1,4 @@
-#include "./../include/Preprocessor.h"
+#include "Preprocessor.h"
 
 z3::expr Preprocessor::normalizeInput(z3::expr const & e){
   if(e.is_app())

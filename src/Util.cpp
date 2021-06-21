@@ -1,4 +1,4 @@
-#include "./../include/Util.h"
+#include "Util.h"
 
 bool Util::isUncommon(z3::expr const & formula, std::set<std::string> const & uncomms) {
   unsigned num_args = formula.num_args();

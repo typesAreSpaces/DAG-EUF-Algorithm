@@ -1,4 +1,4 @@
-#include "../include/CircularPairIterator.h"
+#include "CircularPairIterator.h"
 
 CircularPairIterator::CircularPairIterator(
     Container const & elements) : 

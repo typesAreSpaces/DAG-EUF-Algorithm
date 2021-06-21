@@ -1,4 +1,4 @@
-#include "./../include/TripletState.h"
+#include "TripletState.h"
 
 TripletState::TripletState(
     z3::expr_vector const & vec_input, 

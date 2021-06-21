@@ -1,4 +1,4 @@
-#include "./../include/Preprocessor.h"
+#include "Preprocessor.h"
 #include "z3++.h"
 
 Preprocessor::Preprocessor(z3::expr_vector const & _vec_input):

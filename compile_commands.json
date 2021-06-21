@@ -1,0 +1,162 @@
+[
+ {
+  "directory": "/home/jose/DAG-EUF-Algorithm",
+  "arguments": [
+   "g++",
+   "-g",
+   "-c",
+   "-o",
+   "/home/jose/DAG-EUF-Algorithm/obj/CircularPairIterator.o",
+   "-I/home/jose/DAG-EUF-Algorithm/src",
+   "-I/home/jose/DAG-EUF-Algorithm/include",
+   "-std=c++11",
+   "-Wall",
+   "/home/jose/DAG-EUF-Algorithm/src/CircularPairIterator.cpp"
+  ],
+  "file": "/home/jose/DAG-EUF-Algorithm/src/CircularPairIterator.cpp"
+ },
+ {
+  "directory": "/home/jose/DAG-EUF-Algorithm",
+  "arguments": [
+   "g++",
+   "-g",
+   "-c",
+   "-o",
+   "/home/jose/DAG-EUF-Algorithm/obj/EUFInterpolator.o",
+   "-I/home/jose/DAG-EUF-Algorithm/src",
+   "-I/home/jose/DAG-EUF-Algorithm/include",
+   "-std=c++11",
+   "-Wall",
+   "/home/jose/DAG-EUF-Algorithm/src/EUFInterpolator.cpp"
+  ],
+  "file": "/home/jose/DAG-EUF-Algorithm/src/EUFInterpolator.cpp"
+ },
+ {
+  "directory": "/home/jose/DAG-EUF-Algorithm",
+  "arguments": [
+   "g++",
+   "-g",
+   "-c",
+   "-o",
+   "/home/jose/DAG-EUF-Algorithm/obj/main.o",
+   "-I/home/jose/DAG-EUF-Algorithm/src",
+   "-I/home/jose/DAG-EUF-Algorithm/include",
+   "-std=c++11",
+   "-Wall",
+   "/home/jose/DAG-EUF-Algorithm/src/main.cpp"
+  ],
+  "file": "/home/jose/DAG-EUF-Algorithm/src/main.cpp"
+ },
+ {
+  "directory": "/home/jose/DAG-EUF-Algorithm",
+  "arguments": [
+   "g++",
+   "-g",
+   "-c",
+   "-o",
+   "/home/jose/DAG-EUF-Algorithm/obj/Preprocessor.o",
+   "-I/home/jose/DAG-EUF-Algorithm/src",
+   "-I/home/jose/DAG-EUF-Algorithm/include",
+   "-std=c++11",
+   "-Wall",
+   "/home/jose/DAG-EUF-Algorithm/src/Preprocessor.cpp"
+  ],
+  "file": "/home/jose/DAG-EUF-Algorithm/src/Preprocessor.cpp"
+ },
+ {
+  "directory": "/home/jose/DAG-EUF-Algorithm",
+  "arguments": [
+   "g++",
+   "-g",
+   "-c",
+   "-o",
+   "/home/jose/DAG-EUF-Algorithm/obj/Preprocessor-flattenPredicate.o",
+   "-I/home/jose/DAG-EUF-Algorithm/src",
+   "-I/home/jose/DAG-EUF-Algorithm/include",
+   "-std=c++11",
+   "-Wall",
+   "/home/jose/DAG-EUF-Algorithm/src/Preprocessor-flattenPredicate.cpp"
+  ],
+  "file": "/home/jose/DAG-EUF-Algorithm/src/Preprocessor-flattenPredicate.cpp"
+ },
+ {
+  "directory": "/home/jose/DAG-EUF-Algorithm",
+  "arguments": [
+   "g++",
+   "-g",
+   "-c",
+   "-o",
+   "/home/jose/DAG-EUF-Algorithm/obj/Preprocessor-normalizeInput.o",
+   "-I/home/jose/DAG-EUF-Algorithm/src",
+   "-I/home/jose/DAG-EUF-Algorithm/include",
+   "-std=c++11",
+   "-Wall",
+   "/home/jose/DAG-EUF-Algorithm/src/Preprocessor-normalizeInput.cpp"
+  ],
+  "file": "/home/jose/DAG-EUF-Algorithm/src/Preprocessor-normalizeInput.cpp"
+ },
+ {
+  "directory": "/home/jose/DAG-EUF-Algorithm",
+  "arguments": [
+   "g++",
+   "-g",
+   "-c",
+   "-o",
+   "/home/jose/DAG-EUF-Algorithm/obj/TripletState-Constructors.o",
+   "-I/home/jose/DAG-EUF-Algorithm/src",
+   "-I/home/jose/DAG-EUF-Algorithm/include",
+   "-std=c++11",
+   "-Wall",
+   "/home/jose/DAG-EUF-Algorithm/src/TripletState-Constructors.cpp"
+  ],
+  "file": "/home/jose/DAG-EUF-Algorithm/src/TripletState-Constructors.cpp"
+ },
+ {
+  "directory": "/home/jose/DAG-EUF-Algorithm",
+  "arguments": [
+   "g++",
+   "-g",
+   "-c",
+   "-o",
+   "/home/jose/DAG-EUF-Algorithm/obj/TripletState.o",
+   "-I/home/jose/DAG-EUF-Algorithm/src",
+   "-I/home/jose/DAG-EUF-Algorithm/include",
+   "-std=c++11",
+   "-Wall",
+   "/home/jose/DAG-EUF-Algorithm/src/TripletState.cpp"
+  ],
+  "file": "/home/jose/DAG-EUF-Algorithm/src/TripletState.cpp"
+ },
+ {
+  "directory": "/home/jose/DAG-EUF-Algorithm",
+  "arguments": [
+   "g++",
+   "-g",
+   "-c",
+   "-o",
+   "/home/jose/DAG-EUF-Algorithm/obj/TripletState-Rules.o",
+   "-I/home/jose/DAG-EUF-Algorithm/src",
+   "-I/home/jose/DAG-EUF-Algorithm/include",
+   "-std=c++11",
+   "-Wall",
+   "/home/jose/DAG-EUF-Algorithm/src/TripletState-Rules.cpp"
+  ],
+  "file": "/home/jose/DAG-EUF-Algorithm/src/TripletState-Rules.cpp"
+ },
+ {
+  "directory": "/home/jose/DAG-EUF-Algorithm",
+  "arguments": [
+   "g++",
+   "-g",
+   "-c",
+   "-o",
+   "/home/jose/DAG-EUF-Algorithm/obj/Util.o",
+   "-I/home/jose/DAG-EUF-Algorithm/src",
+   "-I/home/jose/DAG-EUF-Algorithm/include",
+   "-std=c++11",
+   "-Wall",
+   "/home/jose/DAG-EUF-Algorithm/src/Util.cpp"
+  ],
+  "file": "/home/jose/DAG-EUF-Algorithm/src/Util.cpp"
+ }
+]

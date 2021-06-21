@@ -1,4 +1,4 @@
-#include "./../include/TripletState.h"
+#include "TripletState.h"
 
 void TripletState::normalization(){
   bool has_changed = true;

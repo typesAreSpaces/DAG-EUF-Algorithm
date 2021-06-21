@@ -1,4 +1,4 @@
-#include "./../include/Preprocessor.h"
+#include "Preprocessor.h"
 
 void Preprocessor::flattenPredicate(
     z3::expr const & formula, 

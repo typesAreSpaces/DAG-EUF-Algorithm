@@ -1,4 +1,4 @@
-#include "./../include/EUFInterpolator.h"
+#include "EUFInterpolator.h"
 
 EUFInterpolator::EUFInterpolator(
     z3::expr_vector const & input, 

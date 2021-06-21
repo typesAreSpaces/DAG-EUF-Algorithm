@@ -2,3 +2,4 @@ dependencies/*
 bin/*
 lib/*
 obj/*
+.cache/*

@@ -1,4 +1,4 @@
-#include "./../include/EUFInterpolator.h"
+#include "EUFInterpolator.h"
 #include <cstdlib>
 #include <sys/stat.h>
 #include <unistd.h>
