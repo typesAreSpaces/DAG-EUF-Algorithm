@@ -57,6 +57,7 @@ test: bin/euf_interpolator
 .PHONY: clean
 clean:
 	rm -rf $(CURRENT_DIR)/bin/euf_interpolator
+	rm -rf $(CURRENT_DIR)/obj/*
 
 .PHONY: z3_clean
 z3_clean:
