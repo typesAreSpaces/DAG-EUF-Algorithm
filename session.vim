@@ -3,16 +3,16 @@ let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd ~/euf
+cd ~/DAG-EUF-Algorithm
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +0 src/EUFInterpolator.cpp
-badd +0 include/EUFInterpolator.h
-badd +0 include/TripletState.h
+badd +1 src/EUFInterpolator.cpp
+badd +1 include/EUFInterpolator.h
+badd +1 include/TripletState.h
 badd +1 src/TripletState-Rules.cpp
-badd +0 src/TripletState.cpp
+badd +1 src/TripletState.cpp
 argglobal
 %argdel
 edit include/EUFInterpolator.h
@@ -82,7 +82,7 @@ if bufexists("src/EUFInterpolator.cpp") | buffer src/EUFInterpolator.cpp | else 
 if &buftype ==# 'terminal'
   silent file src/EUFInterpolator.cpp
 endif
-balt src/EUFInterpolator.cpp
+balt include/EUFInterpolator.h
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -105,7 +105,7 @@ if bufexists("include/TripletState.h") | buffer include/TripletState.h | else | 
 if &buftype ==# 'terminal'
   silent file include/TripletState.h
 endif
-balt include/TripletState.h
+balt include/EUFInterpolator.h
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -151,7 +151,7 @@ if bufexists("src/TripletState-Rules.cpp") | buffer src/TripletState-Rules.cpp |
 if &buftype ==# 'terminal'
   silent file src/TripletState-Rules.cpp
 endif
-balt src/TripletState-Rules.cpp
+balt include/EUFInterpolator.h
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -171,6 +171,7 @@ normal! 0
 wincmd w
 argglobal
 enew
+balt include/EUFInterpolator.h
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
