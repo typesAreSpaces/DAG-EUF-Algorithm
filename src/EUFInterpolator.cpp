@@ -9,10 +9,6 @@ EUFInterpolator::EUFInterpolator(
   state_solver(ctx), 
   uncomms(uncomms)
 {
-  // Circular Pair Iterator
-  //CircularPairIterator circular_pair_iterator;
-  //circular_pair_iterator((initialSplit(input), uncommon_formulas))
-
   state_stack.push(new TripletState(vec_input));
   loop();
 }
@@ -25,7 +21,6 @@ void EUFInterpolator::loop() {
 
     // TODO:
     // Do something
-    std::cout << current_state->getFormula() << std::endl;
 
     delete current_state;
   }

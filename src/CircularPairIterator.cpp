@@ -8,7 +8,7 @@ CircularPairIterator::CircularPairIterator(
   avoidLowerDiagonal(); 
 }
 
-void CircularPairIterator::next(){
+void CircularPairIterator::operator ++(){
   second_iterator++;
 
   if (second_iterator == elements.end()) {
@@ -18,8 +18,7 @@ void CircularPairIterator::next(){
 
   if (first_iterator == elements.end()) {
     first_iterator = elements.begin();
-    //assert(second_iterator == 0);
-    //second_iterator = 0;
+    assert(second_iterator == elements.begin());
   }
 
   avoidLowerDiagonal();
@@ -30,6 +29,6 @@ CircularPairIterator::Value CircularPairIterator::operator *() const {
 }
 
 void CircularPairIterator::avoidLowerDiagonal(){
-  while (first_iterator->id() >= second_iterator->id()) 
-    next();
+  while (first_iterator->id() >= second_iterator->id())
+    this->operator ++();
 }

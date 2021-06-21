@@ -1,5 +1,31 @@
 #include "./../include/TripletState.h"
 
+void TripletState::setupUncommonFormulas(z3::expr_vector const & vec_input){
+  // Move everything to the uncommon part
+  for(auto const & x : vec_input)
+    uncommon_formulas.insert(x);
+}
+
+void TripletState::setupUncommonFormulas(Util::Z3ExprSet const & set_input){
+  // Move everything to the uncommon part
+  for(auto const & x : set_input)
+    uncommon_formulas.insert(x);
+}
+
+TripletState * TripletState::split(z3::expr const & f) const {
+  TripletState * new_triplet_state = new TripletState(*this);
+  new_triplet_state->addCommon(f);
+  return new_triplet_state;
+}
+
+void TripletState::addExplicit(z3::expr const & f){
+  explicit_formulas.insert(f);
+}
+
+void TripletState::addCommon(z3::expr const & f){
+  common_formulas.insert(f);
+}
+
 z3::expr TripletState::getFormula() const {
   z3::expr_vector results(ctx);
   for(auto const & x : explicit_formulas)
