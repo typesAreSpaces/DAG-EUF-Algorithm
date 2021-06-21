@@ -1,0 +1,5 @@
+z3-interp-plus
+bin/*
+lib/*
+obj/*
+*.vim
