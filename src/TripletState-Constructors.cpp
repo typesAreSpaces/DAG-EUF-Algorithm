@@ -10,6 +10,7 @@ TripletState::TripletState(z3::expr_vector const & vec_input, unsigned & fresh_n
       (setupUncommonFormulas(vec_input), 
        uncommon_formulas))
 {
+  normalization();
 }
 
 TripletState::TripletState(
@@ -31,6 +32,8 @@ TripletState::TripletState(
     explicit_formulas.insert(x);
   for (auto const & x :  _common_formulas)
     explicit_formulas.insert(x);
+
+  normalization();
 }
 
 TripletState::TripletState(TripletState const & other,
@@ -49,4 +52,6 @@ TripletState::TripletState(TripletState const & other,
     explicit_formulas.insert(x);
   for (auto const & x :  other.common_formulas)
     explicit_formulas.insert(x);
+
+  normalization();
 }
