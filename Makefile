@@ -32,9 +32,9 @@ all: test
 #  Rules to build the project
 $(LDIR)/libz3.$(SO_EXT):
 	@mkdir -p $(CURRENT_DIR)/lib
-	cd z3-interp-plus;\
+	cd dependencies/z3-interp-plus;\
 		$(PYTHON_CMD) scripts/mk_make.py --prefix=$(CURRENT_DIR);\
-		cd build; make install -j$(NUM_PROCS_H)
+		cd build; make install -j$(NUM_PROCS)
 
 $(ODIR)/%.o: $(SDIR)/%.cpp $(DEPS) $(LDIR)/libz3.$(SO_EXT)
 	@mkdir -p $(CURRENT_DIR)/obj
@@ -61,7 +61,7 @@ clean:
 
 .PHONY: z3_clean
 z3_clean:
-	cd z3-interp-plus/build;\
+	cd dependencies/z3-interp-plus/build;\
 		make uninstall
 
 .PHONY: deep_clean
