@@ -22,6 +22,7 @@ class CircularPairIterator {
 
   CircularPairIterator(Container const &);
 
+  void reset();
   void operator ++();
   Value operator *() const;
 };

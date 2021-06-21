@@ -28,6 +28,8 @@ namespace Util {
   };
 
   typedef std::set<z3::expr, Z3Comparator> Z3ExprSet;
+
+  Z3ExprSet substitute(z3::expr const &, z3::expr const &, Z3ExprSet const &);
 }
 
 #endif

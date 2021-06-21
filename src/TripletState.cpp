@@ -12,6 +12,10 @@ void TripletState::setupUncommonFormulas(Util::Z3ExprSet const & set_input){
     uncommon_formulas.insert(x);
 }
 
+z3::expr TripletState::fresh_constant(z3::sort const & s){
+  return ctx.constant((FRESH_COMMON_PREFIX + std::to_string(fresh_num++)).c_str(), s);
+}
+
 //TripletState * TripletState::split(z3::expr const & f) const {
   //TripletState * new_triplet_state = new TripletState(*this);
   //new_triplet_state->addCommonFormula(f);

@@ -1,8 +1,12 @@
 #include "./../include/TripletState.h"
 
-TripletState::TripletState(z3::expr_vector const & vec_input, unsigned & fresh_num) :
+TripletState::TripletState(
+    z3::expr_vector const & vec_input, 
+    unsigned & fresh_num, StringSet const & uncomms) :
   ctx(vec_input.ctx()),
   fresh_num(fresh_num),
+  is_leave(false),
+  uncomms(uncomms),
   explicit_formulas({}),
   common_formulas({}),
   uncommon_formulas({}),
@@ -17,9 +21,12 @@ TripletState::TripletState(
     Z3ExprSet const & _explicit_formulas, 
     Z3ExprSet const & _common_formulas, 
     Z3ExprSet const & _uncommon_formulas,
-    z3::context & ctx, unsigned & fresh_num) : 
+    z3::context & ctx, unsigned & fresh_num, 
+    StringSet const & uncomms) : 
   ctx(ctx),
   fresh_num(fresh_num),
+  is_leave(false),
+  uncomms(uncomms),
   explicit_formulas({}),
   common_formulas({}),
   uncommon_formulas({}),
@@ -37,9 +44,12 @@ TripletState::TripletState(
 }
 
 TripletState::TripletState(TripletState const & other,
-    z3::context & ctx, unsigned & fresh_num) :
+    z3::context & ctx, 
+    unsigned & fresh_num, StringSet const & uncomms) :
   ctx(ctx),
   fresh_num(fresh_num),
+  is_leave(false),
+  uncomms(uncomms),
   explicit_formulas({}),
   common_formulas({}),
   uncommon_formulas({}),

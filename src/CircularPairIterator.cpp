@@ -32,3 +32,8 @@ void CircularPairIterator::avoidLowerDiagonal(){
   while (first_iterator->id() >= second_iterator->id())
     this->operator ++();
 }
+
+void CircularPairIterator::reset(){
+  first_iterator = elements.begin(), second_iterator = elements.begin();
+  return;
+}

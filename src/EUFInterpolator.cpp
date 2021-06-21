@@ -9,7 +9,7 @@ EUFInterpolator::EUFInterpolator(
   state_solver(ctx), 
   uncomms(uncomms)
 {
-  state_stack.push(new TripletState(vec_input, fresh_num));
+  state_stack.push(new TripletState(vec_input, fresh_num, uncomms));
   loop();
 }
 
