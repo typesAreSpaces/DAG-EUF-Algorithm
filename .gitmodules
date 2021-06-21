@@ -1,0 +1,3 @@
+[submodule "dependencies/z3-interp-plus"]
+	path = dependencies/z3-interp-plus
+	url = https://github.com/typesAreSpaces/z3-interp-plus
