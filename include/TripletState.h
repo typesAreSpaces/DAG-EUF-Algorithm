@@ -6,9 +6,9 @@
 #include "CircularPairIterator.h"
 #define _DEBUG_TRIPLE_STATE_ 0
 
-#define EXTRACT_PAIR()\
-  z3::expr const & first_eq = *(circular_pair_iterator.getFirstIterator());\
-  z3::expr const & second_eq = *(circular_pair_iterator.getSecondIterator());
+#define EXTRACT_PAIR(X, Y)\
+  z3::expr const & X = *(circular_pair_iterator.getFirstIterator());\
+  z3::expr const & Y = *(circular_pair_iterator.getSecondIterator());
 
 // We need to reset the circular_pair_iterator because
 // if we erase a pointer in uncommon_formulas, this can 
@@ -42,10 +42,16 @@ class TripletState {
 
   void addExplicitFormula(z3::expr const &);
   void addCommonFormula(z3::expr const &);
+  void addUncommonFormula(z3::expr const &);
+  void removeUncommonFormula(CircularPairIterator::Container::iterator const &);
 
   void setupUncommonFormulas(z3::expr_vector const &);
   void setupUncommonFormulas(Z3ExprSet const &);
   z3::expr fresh_constant(z3::sort const &);
+
+  bool            areCompatible(z3::expr const & , z3::expr const &) const;
+  z3::expr_vector differenceSet(z3::expr const & , z3::expr const &) const;
+  bool            isValidDifferenceSet(z3::expr_vector const &) const;
 
   z3::context &     ctx;
   unsigned &        fresh_num;

@@ -22,12 +22,14 @@ void EUFInterpolator::loop() {
     if (current_state->isLeave())
       results.push_back(current_state->getFormula());
     else {
+#if 1
       auto const & splits = current_state->splittingRule();
       if (splits.size() == 0)
         results.push_back(current_state->getFormula());
       else
         for (auto const & state_pointer : splits)
           state_stack.push(state_pointer);
+#endif
     } 
 
     delete current_state;
