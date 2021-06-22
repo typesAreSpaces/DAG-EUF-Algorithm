@@ -15,10 +15,14 @@
 #define func_kind(x)        x.decl().decl_kind()
 
 #include "z3++.h"
+#include <utility>
 #include <set>
 #include <string>
 
 namespace Util {
+
+  typedef std::pair<z3::expr, z3::expr> Z3ExprPair;
+
   bool isUncommon(z3::expr const &, std::set<std::string> const &);
 
   struct Z3Comparator {
@@ -31,5 +35,7 @@ namespace Util {
 
   Z3ExprSet substitute(z3::expr const &, z3::expr const &, Z3ExprSet const &);
 }
+
+std::ostream & operator << (std::ostream &, std::pair<z3::expr, z3::expr> const &);
 
 #endif

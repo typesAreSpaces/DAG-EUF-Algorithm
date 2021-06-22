@@ -2,7 +2,6 @@
 #define _CIRCULAR_PAIR_ITERATOR_
 
 #include "Util.h"
-#include <utility>
 
 class CircularPairIterator {
   
@@ -24,7 +23,9 @@ class CircularPairIterator {
 
   void reset();
   void operator ++();
-  Value operator *() const;
+  Value const operator *() const;
+  Container::iterator const & getSecondIterator() const;
+  Container::iterator const & getFirstIterator() const;
 };
 
 #endif

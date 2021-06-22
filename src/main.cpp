@@ -35,6 +35,7 @@ int main(int argc, char * argv[]){
   z3::expr e2 = ctx.constant("e2", my_sort);
 
   z3::expr t = ctx.constant("t", my_sort);
+  z3::expr t1 = ctx.constant("t1", my_sort);
   z3::expr v1 = ctx.constant("v1", my_sort);
   z3::expr v2 = ctx.constant("v2", my_sort);
 
@@ -47,6 +48,7 @@ int main(int argc, char * argv[]){
   input.push_back(e1 == f(z1, e));
   input.push_back(e2 == f(z2, e));
   input.push_back(f(e1, e2) == t);
+  input.push_back(t1 == f(e1, e2));
   input.push_back(v1 == f(e1, a));
   input.push_back(v2 == f(e2, b));
   try {

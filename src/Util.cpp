@@ -33,3 +33,7 @@ Util::Z3ExprSet Util::substitute(
 
   return result;
 }
+std::ostream & operator << (
+    std::ostream & os, std::pair<z3::expr, z3::expr> const & p){
+  return os << p.first << ", " << p.second;
+}

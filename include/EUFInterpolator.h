@@ -1,6 +1,8 @@
 #ifndef _EUF_INTERPOLANT_
 #define _EUF_INTERPOLANT_
 
+#define _DEBUG_EUF_INTERPOLANT_ 1
+
 #include "TripletState.h"
 #include <stack>
 

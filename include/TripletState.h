@@ -1,17 +1,21 @@
 #ifndef _TRIPLET_STATE_
 #define _TRIPLET_STATE_
 
+#include <vector>
 #include "Preprocessor.h"
 #include "CircularPairIterator.h"
 #define _DEBUG_TRIPLE_STATE_ 1
 
 class TripletState {
+  friend class CircularPairIterator;
 
   private:
 
-  typedef Util::Z3ExprSet       Z3ExprSet;
-  typedef Z3ExprSet::iterator   Z3ExprSetIterator;
-  typedef std::set<std::string> StringSet ;
+  typedef Util::Z3ExprSet               Z3ExprSet;
+  typedef Z3ExprSet::iterator           Z3ExprSetIterator;
+  typedef std::pair<z3::expr, z3::expr> Z3ExprPair;
+  typedef std::set<std::string>         StringSet ;
+  typedef std::vector<TripletState*>    StatePointerVec;
 
   void normalization();
 
@@ -22,7 +26,6 @@ class TripletState {
   bool canApplySimplificationRule_1_2();
   bool canApplyDAGUpdateRule();
   bool canApplyeFreeLiteralRule();
-  bool canApplySplittingRule();
 
   void addExplicitFormula(z3::expr const &);
   void addCommonFormula(z3::expr const &);
@@ -54,7 +57,11 @@ class TripletState {
   TripletState(TripletState const &, z3::context &, 
       unsigned &, StringSet const &);
 
+  // Rules
+  StatePointerVec splittingRule();
+
   z3::expr getFormula() const;
+  bool     isLeave() const;
 
   friend std::ostream & operator << (std::ostream &, TripletState const &);
 };

@@ -1,4 +1,4 @@
-#include "TripletState.h"
+#include "./../include/TripletState.h"
 
 void TripletState::normalization(){
   bool has_changed = true;
@@ -42,6 +42,9 @@ void TripletState::normalization(){
 }
 
 bool TripletState::canApplySimplificationRule_1_0(){
+  std::cout << "@canApplySimplificationRule_1_0" << std::endl;
+  auto const & hmm = *circular_pair_iterator;
+  std::cout << "wait wat " << hmm << std::endl;
   bool has_changed = false;
   for(Z3ExprSetIterator it = uncommon_formulas.begin();
       it != uncommon_formulas.end();
@@ -59,6 +62,8 @@ bool TripletState::canApplySimplificationRule_1_0(){
 }
 
 bool TripletState::canApplySimplificationRule_1_0_(){
+  std::cout << "@canApplySimplificationRule_1_0_" << std::endl;
+  std::cout << "wait wat " << *circular_pair_iterator << std::endl;
   for(Z3ExprSetIterator it = uncommon_formulas.begin();
       it != uncommon_formulas.end();
       ){
@@ -77,30 +82,76 @@ bool TripletState::canApplySimplificationRule_1_0_(){
   return false;
 }
 
+
 bool TripletState::canApplySimplificationRule_1_1(){
+#if 0
+  return false;
+#else
+  std::cout << "@canApplySimplificationRule_1_1" << std::endl;
+  std::cout << "wait wat " << *circular_pair_iterator << std::endl;
   bool has_changed = false;
-  // TODO: implement
-  return has_changed;
+
+  unsigned uncomms_size = uncommon_formulas.size(), gas;
+  if(uncomms_size % 2 == 0)
+    gas = (uncomms_size/2)*(uncomms_size - 1);
+  else
+    gas = ((uncomms_size-1)/2)*uncomms_size;
+
+  // TODO: keep working here
+  while (gas--) {
+    std::cout << "Showing gas" << std::endl;
+    std::cout << gas << std::endl;
+    Z3ExprPair pair_eqs = *circular_pair_iterator;
+    std::cout << "--and pairs" << std::endl;
+    std::cout << pair_eqs << std::endl;
+    if (func_kind(pair_eqs.first) == Z3_OP_EQ 
+        && func_kind(pair_eqs.second) == Z3_OP_EQ 
+        && rhs(pair_eqs.first).id() == rhs(pair_eqs.second).id()){
+      has_changed = true;
+      break;
+    }
+    ++circular_pair_iterator;
+  }
+
+  if (has_changed) {
+    auto const & first_iterator 
+      = circular_pair_iterator.getFirstIterator();
+    auto const & second_iterator 
+      = circular_pair_iterator.getSecondIterator();
+    uncommon_formulas.insert(
+        lhs((*first_iterator)) == lhs((*second_iterator)));
+    uncommon_formulas.erase(second_iterator);
+    circular_pair_iterator.reset();
+    return true;
+  }
+
+  return false;
+#endif
 }
 
 bool TripletState::canApplySimplificationRule_1_2(){
+  std::cout << "@canApplySimplificationRule_1_2" << std::endl;
+  std::cout << "wait wat " << *circular_pair_iterator << std::endl;
   bool has_changed = false;
   // TODO: implement
   return has_changed;
 }
 
 bool TripletState::canApplyDAGUpdateRule(){
+  std::cout << "@canApplyDAGUpdateRule" << std::endl;
+  std::cout << "wait wat " << *circular_pair_iterator << std::endl;
   bool has_changed = false;
   for(Z3ExprSetIterator it = uncommon_formulas.begin();
       it != uncommon_formulas.end();
-      ){
+     ){
     auto const formula = *it;
     auto const & lhs = lhs(formula);
     auto const & rhs = rhs(formula);
     if (func_kind(formula) == Z3_OP_EQ
         && Util::isUncommon(lhs, uncomms) 
         && !Util::isUncommon(rhs, uncomms)
-        ){
+       ){
+      std::cout << "--------haha" << std::endl;
       uncommon_formulas.erase(it++);
 
       auto const & _sort = _get_sort(lhs);
@@ -109,29 +160,33 @@ bool TripletState::canApplyDAGUpdateRule(){
       auto const & _uncommon_formulas = 
         Util::substitute(lhs, _new_constant, uncommon_formulas);
       uncommon_formulas = _uncommon_formulas;
-      circular_pair_iterator.reset();
+      //circular_pair_iterator.reset();
       explicit_formulas.insert(_new_constant == rhs);
 
       has_changed = true;
     }
-    else
+    else{
+      std::cout << "--------hehe" << std::endl;
       ++it;
+    }
   }
   return has_changed;
 }
 
 bool TripletState::canApplyeFreeLiteralRule(){
+  std::cout << "@canApplyeFreeLiteralRule" << std::endl;
+  std::cout << "wait wat " << *circular_pair_iterator << std::endl;
   bool has_changed = false;
   for(Z3ExprSetIterator it = uncommon_formulas.begin();
       it != uncommon_formulas.end();
-      ){
+     ){
     auto const formula = *it;
     if (!Util::isUncommon(formula, uncomms)){
 #if _DEBUG_TRIPLE_STATE_
       std::cout << "Moving this formula "  << formula << std::endl;
 #endif
       uncommon_formulas.erase(it++);
-      explicit_formulas.insert(formula);
+      common_formulas.insert(formula);
 
       has_changed = true;
     }
@@ -141,8 +196,11 @@ bool TripletState::canApplyeFreeLiteralRule(){
   return has_changed;
 }
 
-bool TripletState::canApplySplittingRule(){
-  bool has_changed = false;
+TripletState::StatePointerVec TripletState::splittingRule(){
+  StatePointerVec result;
   // TODO: implement
-  return has_changed;
+  //TripletState * new_triplet_state = new TripletState(*this);
+  //new_triplet_state->addCommonFormula(f);
+  //return new_triplet_state;
+  return result;
 }
