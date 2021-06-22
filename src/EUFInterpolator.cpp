@@ -17,7 +17,6 @@ EUFInterpolator::EUFInterpolator(
 void EUFInterpolator::loop() {
   while(state_stack.size() > 0){
     TripletState * current_state = state_stack.top();
-    std::cout << current_state->getFormula() << std::endl;
     state_stack.pop();
 
     if (current_state->isLeave())

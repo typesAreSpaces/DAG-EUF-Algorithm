@@ -1,4 +1,4 @@
-#include "./../include/TripletState.h"
+#include "TripletState.h"
 
 void TripletState::normalization(){
   bool has_changed = true;
@@ -76,7 +76,6 @@ bool TripletState::canApplySimplificationRule_1_0_(){
   }
   return false;
 }
-
 
 bool TripletState::canApplySimplificationRule_1_1(){
   bool has_changed = false;
