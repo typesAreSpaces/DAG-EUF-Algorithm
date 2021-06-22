@@ -21,8 +21,6 @@
 
 namespace Util {
 
-  typedef std::pair<z3::expr, z3::expr> Z3ExprPair;
-
   bool isUncommon(z3::expr const &, std::set<std::string> const &);
 
   struct Z3Comparator {

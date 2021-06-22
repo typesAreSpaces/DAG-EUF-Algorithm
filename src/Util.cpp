@@ -28,8 +28,8 @@ Util::Z3ExprSet Util::substitute(
 
   Z3ExprSet result({});
 
-  for(z3::expr x : z3_set)
-    result.insert(x.substitute(from, to));
+  for(z3::expr const & x : z3_set)
+    result.insert(((z3::expr)x).substitute(from, to));
 
   return result;
 }

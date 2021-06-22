@@ -24,11 +24,6 @@ void CircularPairIterator::operator ++(){
   avoidLowerDiagonal();
 }
 
-CircularPairIterator::Value const CircularPairIterator::operator *() const {
-  std::cout << "@CircularPairIterator::operator *" << std::endl;
-  return std::make_pair(*first_iterator, *second_iterator);
-}
-
 CircularPairIterator::Container::iterator const & CircularPairIterator::getFirstIterator() const {
   return first_iterator;
 };
@@ -45,5 +40,6 @@ void CircularPairIterator::avoidLowerDiagonal(){
 void CircularPairIterator::reset(){
   first_iterator = elements.begin();
   second_iterator = elements.begin();
+  avoidLowerDiagonal();
   return;
 }

@@ -8,7 +8,6 @@ class CircularPairIterator {
   public:
 
   typedef Util::Z3ExprSet Container;
-  typedef std::pair<z3::expr, z3::expr> Value;
 
   private:
 
@@ -23,7 +22,6 @@ class CircularPairIterator {
 
   void reset();
   void operator ++();
-  Value const operator *() const;
   Container::iterator const & getSecondIterator() const;
   Container::iterator const & getFirstIterator() const;
 };

@@ -4,7 +4,20 @@
 #include <vector>
 #include "Preprocessor.h"
 #include "CircularPairIterator.h"
-#define _DEBUG_TRIPLE_STATE_ 1
+#define _DEBUG_TRIPLE_STATE_ 0
+
+#define EXTRACT_PAIR()\
+  z3::expr const & first_eq = *(circular_pair_iterator.getFirstIterator());\
+  z3::expr const & second_eq = *(circular_pair_iterator.getSecondIterator());
+
+// We need to reset the circular_pair_iterator because
+// if we erase a pointer in uncommon_formulas, this can 
+// be also one of the first_iterator or second_iterator 
+// in circular_pair_iterator
+#define MODIFY_UNCOMMS(CURR_ITERATOR_, EXTRA_CODE)\
+  uncommon_formulas.erase(CURR_ITERATOR_);\
+  EXTRA_CODE;\
+  circular_pair_iterator.reset();
 
 class TripletState {
   friend class CircularPairIterator;
