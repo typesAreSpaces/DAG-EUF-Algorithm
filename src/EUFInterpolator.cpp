@@ -12,7 +12,6 @@ EUFInterpolator::EUFInterpolator(
 #endif
   StateStack state_stack = StateStack();
   state_stack.push(new TripletState(vec_input, fresh_num, uncomms));
-  StateStack to_remove_stack = StateStack();
 
   while (state_stack.size() > 0) {
     TripletState * current_state = state_stack.top();
@@ -34,14 +33,7 @@ EUFInterpolator::EUFInterpolator(
           state_stack.push(state_pointer);
     } 
 
-    //delete current_state;
-    to_remove_stack.push(current_state);
-  }
-
-  while (!to_remove_stack.empty()) {
-    auto const & delete_me = to_remove_stack.top();
-    to_remove_stack.pop();
-    delete delete_me;
+    delete current_state;
   }
 }
 
