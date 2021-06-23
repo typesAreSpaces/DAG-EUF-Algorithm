@@ -1,6 +1,11 @@
 #ifndef _UTIL_
 #define _UTIL_
 
+#include "z3++.h"
+#include <utility>
+#include <set>
+#include <string>
+
 #define FRESH_COMMON_PREFIX   "fresh_"
 
 //#define m_out std::cerr
@@ -13,11 +18,6 @@
 #define _get_sort(x)        x.decl().range()
 #define sort_name(x)        x.decl().range().name().str()
 #define func_kind(x)        x.decl().decl_kind()
-
-#include "z3++.h"
-#include <utility>
-#include <set>
-#include <string>
 
 namespace Util {
 

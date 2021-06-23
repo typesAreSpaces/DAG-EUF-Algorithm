@@ -1,9 +1,9 @@
 #ifndef _PREPROCESS_
 #define _PREPROCESS_
 
-#define _DEBUG_PREPROCESS_ 0
-
 #include "Util.h"
+
+#define _DEBUG_PREPROCESS_ 0
 
 class Preprocessor {
 

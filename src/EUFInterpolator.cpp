@@ -7,7 +7,7 @@ EUFInterpolator::EUFInterpolator(
   results(ctx),
   uncomms(uncomms)
 {
-#if _DEBUG_MAIN_LOOP_EUF__
+#if _DEBUG_MAIN_LOOP_EUF_
   unsigned i = 1;
 #endif
   StateStack state_stack = StateStack();
@@ -43,12 +43,6 @@ EUFInterpolator::EUFInterpolator(
     to_remove_stack.pop();
     delete delete_me;
   }
-
-#if _DEBUG_EUF_INTERPOLANT_
-  std::cout << "--Results" << std::endl;
-  for (auto const & x : results)
-    std::cout << x << std::endl;
-#endif
 }
 
 z3::expr EUFInterpolator::getInterpolant() const {
