@@ -1,5 +1,10 @@
 #include "Util.h"
 
+bool Util::Z3Comparator::operator () (z3::expr const & a, z3::expr const & b) const {
+  return a.id() < b.id();
+}
+
+
 bool Util::isUncommon(z3::expr const & formula, std::set<std::string> const & uncomms) {
   unsigned num_args = formula.num_args();
   auto const & name = func_name(formula);

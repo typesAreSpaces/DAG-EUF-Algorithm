@@ -1,34 +1,27 @@
 #ifndef _EUF_INTERPOLANT_
 #define _EUF_INTERPOLANT_
 
-#define _DEBUG_EUF_INTERPOLANT_ 1
-
 #include "TripletState.h"
 #include <stack>
+
+#define _DEBUG_EUF_INTERPOLANT_ 0
+#define _DEBUG_MAIN_LOOP_EUF_   0
 
 class EUFInterpolator : public Preprocessor {
 
   private:
   typedef std::stack<TripletState *>  StateStack;
 
-  void loop();
-
   // Store formulas at the leaves
   z3::expr_vector results; 
-
-  // Keep track of formulas used by the Splitting Rule
-  StateStack state_stack;
-
-  // Solver used for each state of the algorithm
-  // Uses push/pop to handle complexity
-  z3::solver state_solver;
-
+ 
   // Set of uncommon symbols
   std::set<std::string> const & uncomms;
 
   public:
   EUFInterpolator(
       z3::expr_vector const &, std::set<std::string> const &);
+  friend std::ostream & operator << (std::ostream &, EUFInterpolator const &);
 };
 
 #endif

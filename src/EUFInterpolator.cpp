@@ -5,38 +5,58 @@ EUFInterpolator::EUFInterpolator(
     std::set<std::string> const & uncomms):
   Preprocessor(input), 
   results(ctx),
-  state_stack(),
-  state_solver(ctx), 
   uncomms(uncomms)
 {
+#if _DEBUG_MAIN_LOOP_EUF__
+  unsigned i = 1;
+#endif
+  StateStack state_stack = StateStack();
   state_stack.push(new TripletState(vec_input, fresh_num, uncomms));
-  loop();
-}
+  StateStack to_remove_stack = StateStack();
 
-
-void EUFInterpolator::loop() {
-  while(state_stack.size() > 0){
+  while (state_stack.size() > 0) {
     TripletState * current_state = state_stack.top();
+#if _DEBUG_MAIN_LOOP_EUF_
+    std::cout << std::endl << "Current state " << i++ << std::endl;
+    std::cout << *current_state << std::endl;
+    std::cout << "Current size of state stack " << state_stack.size() << std::endl;
+#endif
     state_stack.pop();
 
     if (current_state->isLeave())
       results.push_back(current_state->getFormula());
     else {
-#if 1
       auto const & splits = current_state->splittingRule();
       if (splits.size() == 0)
         results.push_back(current_state->getFormula());
       else
         for (auto const & state_pointer : splits)
           state_stack.push(state_pointer);
-#endif
     } 
 
-    delete current_state;
+    //delete current_state;
+    to_remove_stack.push(current_state);
   }
+
+  while (!to_remove_stack.empty()) {
+    auto const & delete_me = to_remove_stack.top();
+    to_remove_stack.pop();
+    delete delete_me;
+  }
+
 #if _DEBUG_EUF_INTERPOLANT_
   std::cout << "--Results" << std::endl;
   for (auto const & x : results)
     std::cout << x << std::endl;
 #endif
+}
+
+std::ostream & operator << (std::ostream & os, EUFInterpolator const & e){
+  unsigned i = 0, size = e.results.size();
+  for (auto const & x : e.results) {
+    os << x;
+    if(++i != size)
+      os << " ||" << std::endl;
+  }
+  return os;
 }

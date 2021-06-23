@@ -21,16 +21,14 @@
 
 namespace Util {
 
-  bool isUncommon(z3::expr const &, std::set<std::string> const &);
-
-  struct Z3Comparator {
-    bool operator () (z3::expr const & a, z3::expr const & b) const {
-      return a.id() > b.id();
-    }
-  };
-
+  struct Z3Comparator;
   typedef std::set<z3::expr, Z3Comparator> Z3ExprSet;
 
+  struct Z3Comparator {
+    bool operator () (z3::expr const & a, z3::expr const & b) const;
+  };
+
+  bool isUncommon(z3::expr const &, std::set<std::string> const &);
   Z3ExprSet substitute(z3::expr const &, z3::expr const &, Z3ExprSet const &);
 }
 

@@ -4,20 +4,23 @@
 #include <vector>
 #include "Preprocessor.h"
 #include "CircularPairIterator.h"
-#define _DEBUG_TRIPLE_STATE_ 0
 
-#define EXTRACT_PAIR(X, Y)\
-  z3::expr const & X = *(circular_pair_iterator.getFirstIterator());\
-  z3::expr const & Y = *(circular_pair_iterator.getSecondIterator());
+#define _DEBUG_TRIPLE_STATE_    0
+#define _DEBUG_UNCOMMS_ERASURE_ 0
+#define _DEBUG_SPLIT_RULE_      1
+
+#define EXTRACT_PAIR(PAIR_ITERATOR, X, Y)\
+  z3::expr const & X = *(PAIR_ITERATOR.getFirstIterator());\
+  z3::expr const & Y = *(PAIR_ITERATOR.getSecondIterator());
 
 // We need to reset the circular_pair_iterator because
 // if we erase a pointer in uncommon_formulas, this can 
 // be also one of the first_iterator or second_iterator 
 // in circular_pair_iterator
 #define MODIFY_UNCOMMS(CURR_ITERATOR_, EXTRA_CODE)\
-  uncommon_formulas.erase(CURR_ITERATOR_);\
+  this->uncommon_formulas.erase(CURR_ITERATOR_);\
   EXTRA_CODE;\
-  circular_pair_iterator.reset();
+  this->circular_pair_iterator.reset();
 
 class TripletState {
   friend class CircularPairIterator;
@@ -43,7 +46,7 @@ class TripletState {
   void addExplicitFormula(z3::expr const &);
   void addCommonFormula(z3::expr const &);
   void addUncommonFormula(z3::expr const &);
-  void removeUncommonFormula(CircularPairIterator::Container::iterator const &);
+  void removeUncommonFormula(z3::expr const &);
 
   void setupUncommonFormulas(z3::expr_vector const &);
   void setupUncommonFormulas(Z3ExprSet const &);
@@ -68,11 +71,6 @@ class TripletState {
 
   public:
   TripletState(z3::expr_vector const &, unsigned &, StringSet const &);
-  TripletState(
-      Z3ExprSet const &, 
-      Z3ExprSet const &, 
-      Z3ExprSet const &, 
-      z3::context &, unsigned &, StringSet const &);
   TripletState(TripletState const &, z3::context &, 
       unsigned &, StringSet const &);
 
@@ -82,7 +80,7 @@ class TripletState {
   z3::expr getFormula() const;
   bool     isLeave() const;
 
-  friend std::ostream & operator << (std::ostream &, TripletState const &);
+  friend std::ostream & operator << (std::ostream &, TripletState &);
 };
 
 #endif

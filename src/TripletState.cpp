@@ -2,13 +2,13 @@
 
 void TripletState::setupUncommonFormulas(z3::expr_vector const & vec_input){
   // Move everything to the uncommon part
-  for(auto const & x : vec_input)
+  for(auto x : vec_input)
     uncommon_formulas.insert(x);
 }
 
 void TripletState::setupUncommonFormulas(Util::Z3ExprSet const & set_input){
   // Move everything to the uncommon part
-  for(auto const & x : set_input)
+  for(auto x : set_input)
     uncommon_formulas.insert(x);
 }
 
@@ -29,12 +29,24 @@ void TripletState::addUncommonFormula(z3::expr const & f){
   circular_pair_iterator.reset();
 }
 
-void TripletState::removeUncommonFormula(CircularPairIterator::Container::iterator const & it){
-  std::cout << "what" << std::endl;
-  uncommon_formulas.erase(it);
-  std::cout << "what 2" << std::endl;
-  circular_pair_iterator.reset();
-  std::cout << "what 3" << std::endl;
+void TripletState::removeUncommonFormula(z3::expr const & f){
+  Z3ExprSetIterator it = uncommon_formulas.begin();
+  bool found = false;
+  for (; it != uncommon_formulas.end(); ++it) {
+    if (it->id() == f.id()) {
+      found = true;
+      break;
+    }
+  }
+
+  if (!found) {
+    throw 
+      "Error: formula not found. "
+      "Critical problem because"
+      "it should have been.";
+  }
+
+  MODIFY_UNCOMMS(it, ;);
 }
 
 z3::expr TripletState::getFormula() const {
@@ -113,15 +125,33 @@ bool TripletState::isValidDifferenceSet(z3::expr_vector const & different_set) c
   return true;
 }
 
-std::ostream & operator << (std::ostream & os, TripletState const & ts){
-  os << "Explicit Formulas:" << std::endl;
+std::ostream & operator << (std::ostream & os, TripletState & ts){
+  os << "BEGIN - Explicit Formulas:" << std::endl;
   for (auto const & x : ts.explicit_formulas)
     os << x << std::endl;
-  os << "Common Formulas:" << std::endl;
+  os << "DONE - Explicit Formulas" << std::endl;
+  os << "BEGIN - Common Formulas:" << std::endl;
   for (auto const & x : ts.common_formulas)
     os << x << std::endl;
-  os << "Uncommon Formulas:" << std::endl;
+  os << "DONE - Common Formulas" << std::endl;
+  os << "BEGIN - Uncommon Formulas:" << std::endl;
   for (auto const & x : ts.uncommon_formulas)
     os << x << std::endl;
+  os << "DONE - Uncommon Formulas" << std::endl;
+  os << "BEGIN - Testing circular_pair_iterator:" << std::endl;
+  ts.circular_pair_iterator.reset();
+  unsigned uncomms_size = ts.uncommon_formulas.size(), gas;
+  if (uncomms_size % 2 == 0)
+    gas = (uncomms_size/2)*(uncomms_size - 1);
+  else
+    gas = ((uncomms_size-1)/2)*uncomms_size;
+  while(gas--){
+    EXTRACT_PAIR(ts.circular_pair_iterator, x, y);
+    os << gas << ". ";
+    os << x << " " << x.id() << ", ";
+    os << y << " " << y.id() << std::endl;
+    ++(ts.circular_pair_iterator);
+  }
+  os << "DONE - Testing circular_pair_iterator";
   return os;
 }

@@ -53,7 +53,7 @@ int main(int argc, char * argv[]){
   input.push_back(v2 == f(e2, b));
   try {
     EUFInterpolator eufi(input, uncomms);
-    //std::cout << eufi.removePrefix(eufi.getInterpolant()) << std::endl;
+    std::cout << eufi << std::endl;
   }
   catch(char const * e){
     std::cout << e << std::endl;

@@ -1,8 +1,8 @@
 #include "CircularPairIterator.h"
 
 CircularPairIterator::CircularPairIterator(
-    Container const & elements) : 
-  elements(elements),
+    Container const & _elements) : 
+  elements(_elements),
   first_iterator(elements.begin()), second_iterator(elements.begin())
 { 
   avoidLowerDiagonal(); 
@@ -33,8 +33,9 @@ CircularPairIterator::Container::iterator const & CircularPairIterator::getSecon
 };
 
 void CircularPairIterator::avoidLowerDiagonal(){
-  while (first_iterator->id() >= second_iterator->id())
+  while (first_iterator->id() >= second_iterator->id()){
     this->operator ++();
+  }
 }
 
 void CircularPairIterator::reset(){

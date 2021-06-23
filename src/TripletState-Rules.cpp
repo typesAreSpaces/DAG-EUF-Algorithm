@@ -50,6 +50,10 @@ bool TripletState::canApplySimplificationRule_1_0(){
     if (func_kind(formula) == Z3_OP_EQ 
         && lhs(formula).id() == rhs(formula).id()) {
       MODIFY_UNCOMMS(it++, ;);
+#if _DEBUG_UNCOMMS_ERASURE_ 
+      std::cout << "Checking after MODIFY_UNCOMMS 1 " << formula << std::endl;
+      std::cout << *this << std::endl;
+#endif
       has_changed = true;
     }
     else ++it;
@@ -85,7 +89,7 @@ bool TripletState::canApplySimplificationRule_1_1(){
     gas = ((uncomms_size-1)/2)*uncomms_size;
 
   while (gas--) {
-    EXTRACT_PAIR(first_eq, second_eq);
+    EXTRACT_PAIR(circular_pair_iterator, first_eq, second_eq);
     if (func_kind(first_eq) == Z3_OP_EQ 
         && func_kind(second_eq) == Z3_OP_EQ 
         && rhs(first_eq).id() == rhs(second_eq).id()){
@@ -100,9 +104,16 @@ bool TripletState::canApplySimplificationRule_1_1(){
       = circular_pair_iterator.getFirstIterator();
     auto const & second_iterator 
       = circular_pair_iterator.getSecondIterator();
+#if _DEBUG_UNCOMMS_ERASURE_ 
+    auto const & formula = *second_iterator;
+#endif
     uncommon_formulas.insert(
         lhs((*first_iterator)) == lhs((*second_iterator)));
     MODIFY_UNCOMMS(second_iterator, ;);
+#if _DEBUG_UNCOMMS_ERASURE_ 
+    std::cout << "Checking after MODIFY_UNCOMMS 2 " << formula << std::endl;
+    std::cout << *this << std::endl;
+#endif
     return true;
   }
 
@@ -112,7 +123,7 @@ bool TripletState::canApplySimplificationRule_1_1(){
 bool TripletState::canApplySimplificationRule_1_2(){
   for (Z3ExprSetIterator it = uncommon_formulas.begin();
       it != uncommon_formulas.end();
-     ) {
+      ) {
     auto const formula = *it;
     auto const & lhs = lhs(formula);
     auto const & rhs = rhs(formula);
@@ -129,6 +140,11 @@ bool TripletState::canApplySimplificationRule_1_2(){
             uncommon_formulas.clear();\
             uncommon_formulas = _uncommon_formulas;\
             );
+
+#if _DEBUG_UNCOMMS_ERASURE_ 
+        std::cout << "Checking after MODIFY_UNCOMMS 3 " << formula << std::endl;
+        std::cout << *this << std::endl;
+#endif
       }
       else {
         MODIFY_UNCOMMS(it++, 
@@ -137,6 +153,10 @@ bool TripletState::canApplySimplificationRule_1_2(){
             uncommon_formulas.clear();\
             uncommon_formulas = _uncommon_formulas;\
             );
+#if _DEBUG_UNCOMMS_ERASURE_ 
+        std::cout << "Checking after MODIFY_UNCOMMS 4 " << formula << std::endl;
+        std::cout << *this << std::endl;
+#endif
       }
       return true;
     }
@@ -167,6 +187,10 @@ bool TripletState::canApplyDAGUpdateRule(){
           uncommon_formulas = _uncommon_formulas;\
           explicit_formulas.insert(_new_constant == rhs);
           );
+#if _DEBUG_UNCOMMS_ERASURE_ 
+      std::cout << "Checking after MODIFY_UNCOMMS 5 " << formula << std::endl;
+      std::cout << *this << std::endl;
+#endif
       has_changed = true;
     }
     else ++it;
@@ -182,6 +206,10 @@ bool TripletState::canApplyeFreeLiteralRule(){
     auto const formula = *it;
     if (!Util::isUncommon(formula, uncomms)) {
       MODIFY_UNCOMMS(it++, ;);
+#if _DEBUG_UNCOMMS_ERASURE_ 
+      std::cout << "Checking after MODIFY_UNCOMMS 6 " << formula << std::endl;
+      std::cout << *this << std::endl;
+#endif
       common_formulas.insert(formula);
 
       has_changed = true;
@@ -193,10 +221,6 @@ bool TripletState::canApplyeFreeLiteralRule(){
 
 TripletState::StatePointerVec TripletState::splittingRule(){
   StatePointerVec result;
-  // TODO: implement
-  //TripletState * new_triplet_state = new TripletState(*this);
-  //new_triplet_state->addCommonFormula(f);
-  //return new_triplet_state;
 
   unsigned uncomms_size = uncommon_formulas.size(), gas;
   if (uncomms_size % 2 == 0)
@@ -205,49 +229,52 @@ TripletState::StatePointerVec TripletState::splittingRule(){
     gas = ((uncomms_size-1)/2)*uncomms_size;
 
   while (gas--) {
-    EXTRACT_PAIR(first_eq, second_eq);
+    EXTRACT_PAIR(circular_pair_iterator, first_eq, second_eq);
     auto const & rhs_first_eq = rhs(first_eq), 
          rhs_second_eq = rhs(second_eq);
+    if(rhs_first_eq.num_args() == 0 || rhs_second_eq.num_args() == 0){
+      ++circular_pair_iterator;
+      continue;
+    }
     auto const & different_set = differenceSet(rhs_first_eq, rhs_second_eq);
     if (func_kind(first_eq) == Z3_OP_EQ 
         && func_kind(second_eq) == Z3_OP_EQ 
         && areCompatible(rhs_first_eq, rhs_second_eq) 
         && isValidDifferenceSet(different_set)
        ) {
-#if 1
-      unsigned in;
-      unsigned actual_size = different_set.size()/2;
-      TripletState * new_triplet_state = new TripletState(*this);
-      // ---------------------------------------------------------------------------
-      // First node
-      for (unsigned i = 0; i < actual_size; i+=2) {
-        std::cout << "hmm" << std::endl;
-        new_triplet_state->addCommonFormula(different_set[i] == different_set[i+1]);
-        std::cout << "hmm 1" << std::endl;
-      }
-      std::cout << "hmm 2" << std::endl;
-      new_triplet_state->addUncommonFormula(lhs(first_eq) == lhs(second_eq));
-      std::cout << "hmm 3" << std::endl;
-      new_triplet_state->removeUncommonFormula(circular_pair_iterator.getSecondIterator());
-      std::cout << "hmm 4" << std::endl;
-      result.push_back(new_triplet_state);
-      std::cout << "What just happened 1" << std::endl;
-      std::cin >> in;
+
+#if _DEBUG_SPLIT_RULE_
+      std::cout << "Current split with" << std::endl;
+      std::cout << "First equation" << first_eq << std::endl;
+      std::cout << "Second equation" << second_eq << std::endl;
+      std::cout << "Difference Set" << std::endl;
+      for(auto const & x : different_set)
+        std::cout << x << std::endl;
+#endif
+
+      unsigned actual_size = different_set.size();
+      TripletState * new_triplet_state;
       // ---------------------------------------------------------------------------
       // Others node
-      for (unsigned i = 0; i < actual_size; i++) {
-        new_triplet_state = new TripletState(*this);
+      for (unsigned i = 0; i < actual_size; i+=2) {
+        new_triplet_state = new TripletState(*this, ctx, fresh_num, uncomms);
         new_triplet_state->addCommonFormula(different_set[i] != different_set[i+1]);
         result.push_back(new_triplet_state);
       }
       // ---------------------------------------------------------------------------
-      std::cout << "What just happened 2" << std::endl;
-      std::cin >> in;
-#endif
+      // First node
+      new_triplet_state = new TripletState(*this, ctx, fresh_num, uncomms);
+      for (unsigned i = 0; i < actual_size; i+=2)
+        new_triplet_state->addCommonFormula(different_set[i] == different_set[i+1]);
+      new_triplet_state->addUncommonFormula(lhs(first_eq) == lhs(second_eq));
+      new_triplet_state->removeUncommonFormula(*circular_pair_iterator.getSecondIterator());
+      result.push_back(new_triplet_state);
+      // ---------------------------------------------------------------------------
       return result;
     }
     ++circular_pair_iterator;
   }
 
+  is_leave = true;
   return result;
 }
