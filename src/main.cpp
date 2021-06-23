@@ -48,12 +48,17 @@ int main(int argc, char * argv[]){
   input.push_back(e1 == f(z1, e));
   input.push_back(e2 == f(z2, e));
   input.push_back(f(e1, e2) == t);
-  input.push_back(t1 == f(e1, e2));
+  //input.push_back(t1 == f(e1, e2));
   input.push_back(v1 == f(e1, a));
   input.push_back(v2 == f(e2, b));
   try {
     EUFInterpolator eufi(input, uncomms);
-    std::cout << eufi << std::endl;
+    z3::expr result = eufi.getInterpolant(); 
+    std::cout << "Result:" << std::endl;
+    std::cout << result << std::endl;
+    std::cout << "Simplified Result:" << std::endl;
+    std::cout << result.simplify() << std::endl;
+    //std::cout << eufi << std::endl;
   }
   catch(char const * e){
     std::cout << e << std::endl;

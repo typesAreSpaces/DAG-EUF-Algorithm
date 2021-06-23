@@ -21,6 +21,7 @@ class EUFInterpolator : public Preprocessor {
   public:
   EUFInterpolator(
       z3::expr_vector const &, std::set<std::string> const &);
+  z3::expr getInterpolant() const;
   friend std::ostream & operator << (std::ostream &, EUFInterpolator const &);
 };
 

@@ -51,6 +51,10 @@ EUFInterpolator::EUFInterpolator(
 #endif
 }
 
+z3::expr EUFInterpolator::getInterpolant() const {
+  return z3::mk_or(results);
+}
+
 std::ostream & operator << (std::ostream & os, EUFInterpolator const & e){
   unsigned i = 0, size = e.results.size();
   for (auto const & x : e.results) {
