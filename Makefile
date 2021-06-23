@@ -26,8 +26,9 @@ DEPS=$(wildcard $(IDIR)/*.h)
 OBJS=$(SRC:$(SDIR)/%.cpp=$(ODIR)/%.o) $(LDIR)/libz3.$(SO_EXT)
 FLAGS=-I$(SDIR) -I$(IDIR) -std=c++11 -Wall
 
-FILE_TEST=./tests/smt2-files/test_1.smt2
-SYMBS_ELIM= e e1 e2
+#FILE_TEST=./tests/smt2-files/test_1.smt2
+FILE_TEST=./tests/smt2-files/test_2.smt2
+SYMBS_ELIM=e e1 e2
 
 all: test
 
