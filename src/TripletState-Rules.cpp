@@ -1,43 +1,56 @@
 #include "TripletState.h"
 
-void TripletState::normalization(){
-  bool has_changed = true;
-  while(has_changed){
-    has_changed = false;
-#if _DEBUG_TRIPLE_STATE_
-    std::cout << "beginning" << std::endl;
-    std::cout << *this << std::endl;
+void TripletState::normalization() {
+  while (true) {
+    if (canApplySimplificationRule_1_0()) {
+      continue;
+#if _DEBUG_NORMALIZATION_
+      std::cout << std::endl << "Rule 1_0 was applied" << std::endl;
+      std::cout << "Current state" << std::endl;
+      std::cout << *this << std::endl;
 #endif
-    has_changed |= canApplySimplificationRule_1_0();
-#if _DEBUG_TRIPLE_STATE_
-    std::cout << "done Rule 1_0" << std::endl;
-    std::cout << *this << std::endl;
+    }
+    if (canApplySimplificationRule_1_0_()) {
+      continue;
+#if _DEBUG_NORMALIZATION_
+      std::cout << std::endl << "Rule 1_0_ was applied" << std::endl;
+      std::cout << "Current state" << std::endl;
+      std::cout << *this << std::endl;
 #endif
-    has_changed |= canApplySimplificationRule_1_0_();
-#if _DEBUG_TRIPLE_STATE_
-    std::cout << "done Rule 1_0_" << std::endl;
-    std::cout << *this << std::endl;
+    }
+    if (canApplySimplificationRule_1_1()) {
+      continue;
+#if _DEBUG_NORMALIZATION_
+      std::cout << std::endl << "Rule 1_1 was applied" << std::endl;
+      std::cout << "Current state" << std::endl;
+      std::cout << *this << std::endl;
 #endif
-    has_changed |= canApplySimplificationRule_1_1();
-#if _DEBUG_TRIPLE_STATE_
-    std::cout << "done Rule 1_1" << std::endl;
-    std::cout << *this << std::endl;
+    }
+    if (canApplySimplificationRule_1_2()) {
+      continue;
+#if _DEBUG_NORMALIZATION_
+      std::cout << std::endl << "Rule 1_2 was applied" << std::endl;
+      std::cout << "Current state" << std::endl;
+      std::cout << *this << std::endl;
 #endif
-    has_changed |= canApplySimplificationRule_1_2();
-#if _DEBUG_TRIPLE_STATE_
-    std::cout << "done Rule 1_2" << std::endl;
-    std::cout << *this << std::endl;
+    }
+    if (canApplyDAGUpdateRule()) {
+      continue;
+#if _DEBUG_NORMALIZATION_
+      std::cout << std::endl << "DAG Update Rule was applied" << std::endl;
+      std::cout << "Current state" << std::endl;
+      std::cout << *this << std::endl;
 #endif
-    has_changed |= canApplyDAGUpdateRule();
-#if _DEBUG_TRIPLE_STATE_
-    std::cout << "done DAG Update Rule" << std::endl;
-    std::cout << *this << std::endl;
+    }
+    if (canApplyeFreeLiteralRule()) {
+      continue;
+#if _DEBUG_NORMALIZATION_
+      std::cout << std::endl << "e-Free Literal Rule was applied" << std::endl;
+      std::cout << "Current state" << std::endl;
+      std::cout << *this << std::endl;
 #endif
-    has_changed |= canApplyeFreeLiteralRule();
-#if _DEBUG_TRIPLE_STATE_
-    std::cout << "done e Free Literal Rule" << std::endl;
-    std::cout << *this << std::endl;
-#endif
+    }
+    break;
   }
 }
 
@@ -259,6 +272,7 @@ TripletState::StatePointerVec TripletState::splittingRule(){
       for (unsigned i = 0; i < actual_size; i+=2) {
         new_triplet_state = new TripletState(*this, ctx, fresh_num, uncomms);
         new_triplet_state->addCommonFormula(different_set[i] != different_set[i+1]);
+        new_triplet_state->normalization();
         result.push_back(new_triplet_state);
       }
       // ---------------------------------------------------------------------------
@@ -268,6 +282,7 @@ TripletState::StatePointerVec TripletState::splittingRule(){
         new_triplet_state->addCommonFormula(different_set[i] == different_set[i+1]);
       new_triplet_state->addUncommonFormula(lhs(first_eq) == lhs(second_eq));
       new_triplet_state->removeUncommonFormula(*circular_pair_iterator.getSecondIterator());
+      new_triplet_state->normalization();
       result.push_back(new_triplet_state);
       // ---------------------------------------------------------------------------
       return result;

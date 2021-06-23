@@ -4,7 +4,7 @@
 #include "TripletState.h"
 #include <stack>
 
-#define _DEBUG_MAIN_LOOP_EUF_   1
+#define _DEBUG_MAIN_LOOP_EUF_   0
 
 class EUFInterpolator : public Preprocessor {
 

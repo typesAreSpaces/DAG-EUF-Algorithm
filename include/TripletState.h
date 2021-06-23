@@ -5,9 +5,10 @@
 #include "Preprocessor.h"
 #include "CircularPairIterator.h"
 
-#define _DEBUG_TRIPLE_STATE_    1
+#define _DEBUG_CONSTRUCTOR_     0
+#define _DEBUG_NORMALIZATION_   0
 #define _DEBUG_UNCOMMS_ERASURE_ 0
-#define _DEBUG_SPLIT_RULE_      1
+#define _DEBUG_SPLIT_RULE_      0
 
 #define EXTRACT_PAIR(PAIR_ITERATOR, X, Y)\
   z3::expr const & X = *(PAIR_ITERATOR.getFirstIterator());\

@@ -14,6 +14,19 @@ TripletState::TripletState(
       (setupUncommonFormulas(vec_input), 
        uncommon_formulas))
 {
+#if _DEBUG_CONSTRUCTOR_
+  std::cout << "New Triple State" << std::endl;
+  std::cout << "Explicit formulas" << std::endl;
+  for (auto x : explicit_formulas)
+    std::cout << x << std::endl;
+  std::cout << "Uncommon formulas" << std::endl;
+  for (auto x : uncommon_formulas)
+    std::cout << x << std::endl;
+  std::cout << "Common formulas" << std::endl;
+  for (auto x : common_formulas)
+    std::cout << x << std::endl;
+#endif
+
   normalization();
 }
 
@@ -37,6 +50,19 @@ TripletState::TripletState(
     explicit_formulas.insert(x);
   for (auto x :  other.common_formulas)
     common_formulas.insert(x);
+
+#if _DEBUG_CONSTRUCTOR_
+  std::cout << "New Triple State" << std::endl;
+  std::cout << "Explicit formulas" << std::endl;
+  for (auto x : explicit_formulas)
+    std::cout << x << std::endl;
+  std::cout << "Uncommon formulas" << std::endl;
+  for (auto x : uncommon_formulas)
+    std::cout << x << std::endl;
+  std::cout << "Common formulas" << std::endl;
+  for (auto x : common_formulas)
+    std::cout << x << std::endl;
+#endif
 
   normalization();
 }

@@ -137,8 +137,10 @@ std::ostream & operator << (std::ostream & os, TripletState & ts){
   os << "BEGIN - Uncommon Formulas:" << std::endl;
   for (auto const & x : ts.uncommon_formulas)
     os << x << std::endl;
-  os << "DONE - Uncommon Formulas" << std::endl;
-  os << "BEGIN - Testing circular_pair_iterator:" << std::endl;
+  os << "DONE - Uncommon Formulas";
+#if _DEBUG_UNCOMMS_ERASURE_ 
+  os << std::endl 
+    << "BEGIN - Testing circular_pair_iterator:" << std::endl;
   ts.circular_pair_iterator.reset();
   unsigned uncomms_size = ts.uncommon_formulas.size(), gas;
   if (uncomms_size % 2 == 0)
@@ -153,5 +155,6 @@ std::ostream & operator << (std::ostream & os, TripletState & ts){
     ++(ts.circular_pair_iterator);
   }
   os << "DONE - Testing circular_pair_iterator";
+#endif
   return os;
 }

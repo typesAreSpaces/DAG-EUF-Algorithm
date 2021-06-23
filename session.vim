@@ -8,24 +8,24 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +22 src/EUFInterpolator.cpp
+badd +49 src/EUFInterpolator.cpp
 badd +24 include/EUFInterpolator.h
-badd +68 include/TripletState.h
-badd +123 src/TripletState-Rules.cpp
-badd +61 src/TripletState.cpp
-badd +10 include/Preprocessor.h
-badd +48 src/TripletState-Constructors.cpp
-badd +28 src/CircularPairIterator.cpp
-badd +11 include/CircularPairIterator.h
-badd +51 src/main.cpp
-badd +24 include/Util.h
-badd +36 src/Util.cpp
+badd +9 include/TripletState.h
+badd +275 src/TripletState-Rules.cpp
+badd +157 src/TripletState.cpp
+badd +6 include/Preprocessor.h
+badd +30 src/TripletState-Constructors.cpp
+badd +41 src/CircularPairIterator.cpp
+badd +4 include/CircularPairIterator.h
+badd +35 src/main.cpp
+badd +20 include/Util.h
+badd +5 src/Util.cpp
 badd +5 src/Preprocessor.cpp
 badd +1 src/Preprocessor-normalizeInput.cpp
 badd +117 src/Preprocessor-flattenPredicate.cpp
 argglobal
 %argdel
-edit include/TripletState.h
+edit include/EUFInterpolator.h
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
 set splitbelow splitright
@@ -37,10 +37,6 @@ vsplit
 wincmd _ | wincmd |
 vsplit
 2wincmd h
-wincmd w
-wincmd _ | wincmd |
-split
-1wincmd k
 wincmd w
 wincmd w
 wincmd w
@@ -60,44 +56,19 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe '1resize ' . ((&lines * 67 + 51) / 102)
-exe 'vert 1resize ' . ((&columns * 93 + 140) / 281)
-exe '2resize ' . ((&lines * 33 + 51) / 102)
-exe 'vert 2resize ' . ((&columns * 93 + 140) / 281)
-exe '3resize ' . ((&lines * 33 + 51) / 102)
-exe 'vert 3resize ' . ((&columns * 93 + 140) / 281)
-exe '4resize ' . ((&lines * 67 + 51) / 102)
-exe 'vert 4resize ' . ((&columns * 93 + 140) / 281)
-exe '5resize ' . ((&lines * 32 + 51) / 102)
-exe 'vert 5resize ' . ((&columns * 93 + 140) / 281)
-exe '6resize ' . ((&lines * 32 + 51) / 102)
-exe 'vert 6resize ' . ((&columns * 93 + 140) / 281)
-exe '7resize ' . ((&lines * 32 + 51) / 102)
-exe 'vert 7resize ' . ((&columns * 93 + 140) / 281)
+exe '1resize ' . ((&lines * 28 + 39) / 79)
+exe 'vert 1resize ' . ((&columns * 90 + 136) / 272)
+exe '2resize ' . ((&lines * 28 + 39) / 79)
+exe 'vert 2resize ' . ((&columns * 90 + 136) / 272)
+exe '3resize ' . ((&lines * 28 + 39) / 79)
+exe 'vert 3resize ' . ((&columns * 90 + 136) / 272)
+exe '4resize ' . ((&lines * 48 + 39) / 79)
+exe 'vert 4resize ' . ((&columns * 90 + 136) / 272)
+exe '5resize ' . ((&lines * 48 + 39) / 79)
+exe 'vert 5resize ' . ((&columns * 90 + 136) / 272)
+exe '6resize ' . ((&lines * 48 + 39) / 79)
+exe 'vert 6resize ' . ((&columns * 90 + 136) / 272)
 argglobal
-balt include/CircularPairIterator.h
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 66 - ((47 * winheight(0) + 33) / 67)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 66
-normal! 02|
-wincmd w
-argglobal
-if bufexists("include/CircularPairIterator.h") | buffer include/CircularPairIterator.h | else | edit include/CircularPairIterator.h | endif
-if &buftype ==# 'terminal'
-  silent file include/CircularPairIterator.h
-endif
 balt include/TripletState.h
 setlocal fdm=manual
 setlocal fde=0
@@ -109,19 +80,111 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 20 - ((16 * winheight(0) + 16) / 33)
+let s:l = 7 - ((6 * winheight(0) + 14) / 28)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 7
+normal! 033|
+wincmd w
+argglobal
+if bufexists("include/TripletState.h") | buffer include/TripletState.h | else | edit include/TripletState.h | endif
+if &buftype ==# 'terminal'
+  silent file include/TripletState.h
+endif
+balt include/EUFInterpolator.h
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 11 - ((10 * winheight(0) + 14) / 28)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 11
+normal! 033|
+wincmd w
+argglobal
+if bufexists("src/TripletState-Constructors.cpp") | buffer src/TripletState-Constructors.cpp | else | edit src/TripletState-Constructors.cpp | endif
+if &buftype ==# 'terminal'
+  silent file src/TripletState-Constructors.cpp
+endif
+balt src/TripletState-Rules.cpp
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 1 - ((0 * winheight(0) + 14) / 28)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 1
+normal! 0
+wincmd w
+argglobal
+if bufexists("src/EUFInterpolator.cpp") | buffer src/EUFInterpolator.cpp | else | edit src/EUFInterpolator.cpp | endif
+if &buftype ==# 'terminal'
+  silent file src/EUFInterpolator.cpp
+endif
+balt src/TripletState.cpp
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 20 - ((13 * winheight(0) + 24) / 48)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 20
+normal! 025|
+wincmd w
+argglobal
+if bufexists("src/TripletState-Rules.cpp") | buffer src/TripletState-Rules.cpp | else | edit src/TripletState-Rules.cpp | endif
+if &buftype ==# 'terminal'
+  silent file src/TripletState-Rules.cpp
+endif
+balt src/TripletState.cpp
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 276 - ((29 * winheight(0) + 24) / 48)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 276
 normal! 09|
 wincmd w
 argglobal
-if bufexists("src/CircularPairIterator.cpp") | buffer src/CircularPairIterator.cpp | else | edit src/CircularPairIterator.cpp | endif
+if bufexists("src/main.cpp") | buffer src/main.cpp | else | edit src/main.cpp | endif
 if &buftype ==# 'terminal'
-  silent file src/CircularPairIterator.cpp
+  silent file src/main.cpp
 endif
-balt include/CircularPairIterator.h
+balt src/TripletState-Rules.cpp
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -132,119 +195,26 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 32 - ((13 * winheight(0) + 16) / 33)
+let s:l = 8 - ((7 * winheight(0) + 24) / 48)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 32
+keepjumps 8
 normal! 0
 wincmd w
-argglobal
-if bufexists("include/CircularPairIterator.h") | buffer include/CircularPairIterator.h | else | edit include/CircularPairIterator.h | endif
-if &buftype ==# 'terminal'
-  silent file include/CircularPairIterator.h
-endif
-balt src/CircularPairIterator.cpp
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 31 - ((30 * winheight(0) + 33) / 67)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 31
-normal! 06|
-wincmd w
-argglobal
-if bufexists("src/TripletState.cpp") | buffer src/TripletState.cpp | else | edit src/TripletState.cpp | endif
-if &buftype ==# 'terminal'
-  silent file src/TripletState.cpp
-endif
-balt include/CircularPairIterator.h
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 56 - ((17 * winheight(0) + 16) / 32)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 56
-normal! 0
-wincmd w
-argglobal
-if bufexists("src/TripletState-Rules.cpp") | buffer src/TripletState-Rules.cpp | else | edit src/TripletState-Rules.cpp | endif
-if &buftype ==# 'terminal'
-  silent file src/TripletState-Rules.cpp
-endif
-balt src/CircularPairIterator.cpp
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 46 - ((19 * winheight(0) + 16) / 32)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 46
-normal! 045|
-wincmd w
-argglobal
-if bufexists("src/TripletState-Rules.cpp") | buffer src/TripletState-Rules.cpp | else | edit src/TripletState-Rules.cpp | endif
-if &buftype ==# 'terminal'
-  silent file src/TripletState-Rules.cpp
-endif
-balt src/CircularPairIterator.cpp
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 163 - ((20 * winheight(0) + 16) / 32)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 163
-normal! 07|
-wincmd w
-exe '1resize ' . ((&lines * 67 + 51) / 102)
-exe 'vert 1resize ' . ((&columns * 93 + 140) / 281)
-exe '2resize ' . ((&lines * 33 + 51) / 102)
-exe 'vert 2resize ' . ((&columns * 93 + 140) / 281)
-exe '3resize ' . ((&lines * 33 + 51) / 102)
-exe 'vert 3resize ' . ((&columns * 93 + 140) / 281)
-exe '4resize ' . ((&lines * 67 + 51) / 102)
-exe 'vert 4resize ' . ((&columns * 93 + 140) / 281)
-exe '5resize ' . ((&lines * 32 + 51) / 102)
-exe 'vert 5resize ' . ((&columns * 93 + 140) / 281)
-exe '6resize ' . ((&lines * 32 + 51) / 102)
-exe 'vert 6resize ' . ((&columns * 93 + 140) / 281)
-exe '7resize ' . ((&lines * 32 + 51) / 102)
-exe 'vert 7resize ' . ((&columns * 93 + 140) / 281)
+4wincmd w
+exe '1resize ' . ((&lines * 28 + 39) / 79)
+exe 'vert 1resize ' . ((&columns * 90 + 136) / 272)
+exe '2resize ' . ((&lines * 28 + 39) / 79)
+exe 'vert 2resize ' . ((&columns * 90 + 136) / 272)
+exe '3resize ' . ((&lines * 28 + 39) / 79)
+exe 'vert 3resize ' . ((&columns * 90 + 136) / 272)
+exe '4resize ' . ((&lines * 48 + 39) / 79)
+exe 'vert 4resize ' . ((&columns * 90 + 136) / 272)
+exe '5resize ' . ((&lines * 48 + 39) / 79)
+exe 'vert 5resize ' . ((&columns * 90 + 136) / 272)
+exe '6resize ' . ((&lines * 48 + 39) / 79)
+exe 'vert 6resize ' . ((&columns * 90 + 136) / 272)
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0&& getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

@@ -4,6 +4,8 @@
 #include <unistd.h>
 #include <fstream>
 
+#define _ENABLE_CORRECTNESS_TEST_ 1
+
 typedef std::set<std::string> StringSet;
 
 z3::expr_vector setupQuickTest(z3::context &);
@@ -18,17 +20,22 @@ int main(int argc, char * argv[]){
   ctx.set(":pp-max-depth",      1000000);
 
   StringSet uncomms = readUncommsSymbols(argc, argv);
-  z3::expr_vector input = setupQuickTest(ctx);
+  //z3::expr_vector input = setupQuickTest(ctx);
+  z3::expr_vector input = readInputFormula(ctx, argc, argv);
   
   try {
     EUFInterpolator eufi(input, uncomms);
     z3::expr result = eufi.getInterpolant(); 
 
+    std::cout << "Input:" << std::endl;
+    std::cout << z3::mk_and(input) << std::endl;
     std::cout << "Interpolant:" << std::endl;
     std::cout << result << std::endl;
 
+#if _ENABLE_CORRECTNESS_TEST_
     z3::solver s(ctx);
-    s.add(not(z3::implies(input, result)));
+    s.add(not(z3::implies(z3::mk_and(input), result)));
+    std::cout << "Correctness test: ";
     switch (s.check()) {
       case z3::unsat:
         std::cout << "Ok" << std::endl;
@@ -38,6 +45,7 @@ int main(int argc, char * argv[]){
         std::cout << "Not ok" << std::endl;
         break;
     }
+#endif
   }
   catch(char const * e){
     std::cout << e << std::endl;
