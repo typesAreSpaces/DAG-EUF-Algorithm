@@ -33,7 +33,7 @@ all: test2
 $(LDIR)/libz3.$(SO_EXT):
 	@mkdir -p $(CURRENT_DIR)/lib
 	[ -z "$(ls -A dependencies/z3-interp-plus)" ]\
-		&& git submodule update --init --remote dependencies/z3-interp-plu
+		&& git submodule update --init --remote dependencies/z3-interp-plus
 	cd dependencies/z3-interp-plus;\
 		$(PYTHON_CMD) scripts/mk_make.py --prefix=$(CURRENT_DIR);\
 		cd build; make install -j$(NUM_PROCS)
