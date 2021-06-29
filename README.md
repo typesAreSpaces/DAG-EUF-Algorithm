@@ -6,14 +6,6 @@ uninterpreted symbols.
 
 ## Building the project
 
-The project requires some z3 dependencies. The
-latter can be achieved using the following command from
-the root of the project:
-
-```
-git submodule update --init --remote dependencies/z3-interp-plus
-```
-
 In the root directory, execute the command:
 
 ```
