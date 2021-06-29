@@ -26,13 +26,7 @@ DEPS=$(wildcard $(IDIR)/*.h)
 OBJS=$(SRC:$(SDIR)/%.cpp=$(ODIR)/%.o) $(LDIR)/libz3.$(SO_EXT)
 FLAGS=-I$(SDIR) -I$(IDIR) -std=c++11 -Wall
 
-#FILE_TEST=./tests/smt2-files/test_1.smt2
-#FILE_TEST=./tests/smt2-files/test_2.smt2
-#SYMBS_ELIM=e e1 e2
-FILE_TEST=./tests/smt2-files/example_2.smt2
-SYMBS_ELIM=e0
-
-all: test
+all: test2
 
 # -------------------------------------------------------------------------------
 #  Rules to build the project
@@ -53,9 +47,12 @@ bin/euf_interpolator: $(LDIR)/libz3.$(SO_EXT) $(OBJS)
 
 # -------------------------------------------------------
 #  Rules to test a single or many smt2 files
-.PHONY: test
-test: bin/euf_interpolator
-	./bin/euf_interpolator $(FILE_TEST) $(SYMBS_ELIM)
+.PHONY: test1
+test1: bin/euf_interpolator
+	./bin/euf_interpolator ./tests/smt2-files/test_1.smt2 e e1 e2
+.PHONY: test2
+test2: bin/euf_interpolator
+	./bin/euf_interpolator ./tests/smt2-files/example_2.smt2 e0
 # -------------------------------------------------------
 
 # ------------------------------

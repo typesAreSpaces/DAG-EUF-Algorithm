@@ -60,7 +60,23 @@ void EUFInterpolator::collectIndexes(z3::expr const & f) {
 
 z3::expr EUFInterpolator::getInterpolant(){
 
+#if _ENABLE_SIMPLIFICATION_
+  z3::tactic t1(ctx, "simplify");
+  z3::tactic t2(ctx, "solve-eqs");
+  z3::tactic t = t1 & t2;
+
+  z3::expr_vector _results(ctx);
+  z3::goal g(ctx);
+  for (auto const & disjunct : results) {
+    g.add(disjunct);
+    _results.push_back(t(g).as_expr());
+    g.reset();
+  }
+
+  auto const & result = z3::mk_or(_results);
+#else
   auto const & result = z3::mk_or(results);
+#endif
 
   if(!fresh_indexes_defined)
     collectIndexes(result);

@@ -5,6 +5,7 @@
 #include <stack>
 
 #define _DEBUG_MAIN_LOOP_EUF_   0
+#define _ENABLE_SIMPLIFICATION_ 0
 
 class EUFInterpolator : public Preprocessor {
 
