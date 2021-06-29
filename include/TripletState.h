@@ -78,8 +78,9 @@ class TripletState {
   // Rules
   StatePointerVec splittingRule();
 
-  z3::expr getFormula() const;
-  bool     isLeave() const;
+  z3::expr getFormula()     const;
+  bool     isLeave()        const;
+  bool     availablePairs() const;
 
   friend std::ostream & operator << (std::ostream &, TripletState &);
 };

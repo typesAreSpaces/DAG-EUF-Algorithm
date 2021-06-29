@@ -10,7 +10,7 @@ void TripletState::normalization() {
       std::cout << *this << std::endl;
 #endif
     }
-    if (canApplySimplificationRule_1_0_()) {
+    if (availablePairs() && canApplySimplificationRule_1_0_()) {
       continue;
 #if _DEBUG_NORMALIZATION_
       std::cout << std::endl << "Rule 1_0_ was applied" << std::endl;
@@ -240,6 +240,11 @@ TripletState::StatePointerVec TripletState::splittingRule(){
     gas = (uncomms_size/2)*(uncomms_size - 1);
   else
     gas = ((uncomms_size-1)/2)*uncomms_size;
+
+  if (!availablePairs()) {
+    is_leave = true;
+    return result;
+  }
 
   while (gas--) {
     EXTRACT_PAIR(circular_pair_iterator, first_eq, second_eq);

@@ -11,16 +11,21 @@ class EUFInterpolator : public Preprocessor {
   private:
   typedef std::stack<TripletState *>  StateStack;
 
+  void collectIndexes(z3::expr const &);
+
   // Store formulas at the leaves
   z3::expr_vector results; 
  
   // Set of uncommon symbols
   std::set<std::string> const & uncomms;
+  std::set<unsigned>            fresh_index_ids;
+  z3::expr_vector               fresh_indexes;
+  bool                          fresh_indexes_defined;
 
   public:
   EUFInterpolator(
       z3::expr_vector const &, std::set<std::string> const &);
-  z3::expr getInterpolant() const;
+  z3::expr getInterpolant();
   friend std::ostream & operator << (std::ostream &, EUFInterpolator const &);
 };
 

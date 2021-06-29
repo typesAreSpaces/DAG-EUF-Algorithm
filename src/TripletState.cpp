@@ -70,12 +70,14 @@ bool TripletState::isLeave() const {
   return is_leave;
 }
 
-bool TripletState::areCompatible(z3::expr const & f1, z3::expr const & f2) const {
-  if (f1.num_args() != f2.num_args())
-    return false;
+bool TripletState::availablePairs() const {
+  return uncommon_formulas.size() > 1;
+}
 
-  if(f1.num_args() == 0)
-    return false;
+bool TripletState::areCompatible(z3::expr const & f1, z3::expr const & f2) const {
+  if (f1.num_args() != f2.num_args()) return false;
+  if(f1.num_args() == 0) return false;
+  if(func_name(f1) != func_name(f2)) return false;
 
   for (unsigned i = 0; i < f1.num_args(); i++) {
     auto const & arg_1 = f1.arg(i);

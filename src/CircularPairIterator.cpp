@@ -41,6 +41,7 @@ void CircularPairIterator::avoidLowerDiagonal(){
 void CircularPairIterator::reset(){
   first_iterator = elements.begin();
   second_iterator = elements.begin();
+  if (elements.size() == 1) return;
   avoidLowerDiagonal();
   return;
 }
