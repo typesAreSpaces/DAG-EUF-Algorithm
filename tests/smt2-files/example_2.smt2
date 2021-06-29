@@ -1,0 +1,16 @@
+(declare-sort A 0)
+(declare-fun f (A A) A)
+(declare-fun g (A A) A)
+(declare-fun h (A) A)
+(declare-fun z0 () A)
+(declare-fun z1 () A)
+(declare-fun z2 () A)
+(declare-fun z3 () A)
+(declare-fun z4 () A)
+(declare-fun e0 () A)
+
+(assert (= (g z4 e0) z0))
+(assert (= (f z2 e0) (g z3 e0)))
+(assert (= (h (f z1 e0)) z0))
+
+(check-sat)
